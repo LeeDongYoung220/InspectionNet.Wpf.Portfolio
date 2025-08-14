@@ -1,0 +1,17 @@
+{
+  "profiles": {
+    "Debug": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false,
+      "remoteDebugMachine": "10.10.20.61:4026",
+      "authenticationMode": "Windows"
+    },
+    "Remote": {
+      "commandName": "Project",
+      "workingDirectory": "\\\\10.10.20.61\\RemoteLYS",
+      "remoteDebugEnabled": true,
+      "remoteDebugMachine": "10.10.20.61:4026",
+      "authenticationMode": "Windows"
+    }
+  }
+}

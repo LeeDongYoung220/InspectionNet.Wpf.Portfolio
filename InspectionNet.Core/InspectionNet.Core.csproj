@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-windows;net481;</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Platforms>AnyCPU;x64</Platforms>
+		<Configurations>Debug;Release;Remote;RemoteLys</Configurations>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.6" />
+		<PackageReference Include="System.IO.Ports" Version="9.0.6" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if not exist &quot;$(ProjectDir)..\bin\$(PlatformName)\$(ConfigurationName)&quot; mkdir &quot;$(ProjectDir)..\bin\$(PlatformName)\$(ConfigurationName)&quot;&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)..\bin\$(PlatformName)\$(ConfigurationName)\&quot; /E /Y" />
+	</Target>
+
+</Project>

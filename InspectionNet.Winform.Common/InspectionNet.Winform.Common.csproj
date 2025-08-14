@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PlatformTarget>x64</PlatformTarget>
+		<Configurations>Debug;Release;Remote;RemoteLys</Configurations>
+		<Platforms>AnyCPU;x64</Platforms>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\InspectionNet.Wpf_Portfolio\InspectionNet.Core\InspectionNet.Core.csproj" />
+	</ItemGroup>
+
+</Project>

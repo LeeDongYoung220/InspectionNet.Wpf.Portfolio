@@ -1,0 +1,35 @@
+﻿<Window x:Class="InspectionNet.Wpf.MainFrame.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InspectionNet.Wpf.MainFrame.Views"
+        WindowState="Maximized"
+        DataContext="{Binding Main, Source={StaticResource ViewModelLocator}}"
+        xmlns:Views="clr-namespace:InspectionNet.Wpf.PocProject.Views;assembly=InspectionNet.Wpf.PocProject" 
+        mc:Ignorable="d"
+        d:DataContext="{Binding Main, Source={StaticResource ViewModelLocator}}"
+        Title="MainView" Height="900" Width="1400" Style="{StaticResource MaterialDesignWindow}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Logo -->
+            <ContentControl Grid.Row="0" Margin="10" Content="{Binding LogoControl}"/>
+
+            <!-- Left Side Menu -->
+            <ContentControl Grid.Row="1" Margin="0,30,0,0" Content="{Binding MenuBarControl}"/>
+        </Grid>
+        
+        <!-- View Content -->
+        <ContentControl Grid.Column="1" Content="{Binding CurrentSubView}"/>
+    </Grid>
+</Window>

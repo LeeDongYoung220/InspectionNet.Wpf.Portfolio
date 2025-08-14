@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="InspectionNet.Wpf.PocProject.Views.PocSideMenuBarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:vm="clr-namespace:InspectionNet.Wpf.PocProject.ViewModels"
+             d:DataContext="{d:DesignInstance vm:PocMenuBarViewModel}"
+             DataContext="{Binding MenuBar, Source={StaticResource ViewModelLocator}}"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InspectionNet.Wpf.PocProject.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="150">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ListBox Grid.Row="0" SelectedIndex="{Binding SelectedMenuIndex}">
+            <ListBoxItem>
+                <ListBoxItem.Style>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MaterialDesign3.NavigationDrawerPrimaryListBoxItem}">
+                        <Setter Property="materialDesign:NavigationDrawerAssist.SelectedIcon" Value="Home" />
+                        <Setter Property="materialDesign:NavigationDrawerAssist.UnselectedIcon" Value="HomeOutline" />
+                    </Style>
+                </ListBoxItem.Style>
+                <TextBlock Text="HOME" />
+            </ListBoxItem>
+            <ListBoxItem>
+                <ListBoxItem.Style>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MaterialDesign3.NavigationDrawerPrimaryListBoxItem}">
+                        <Setter Property="materialDesign:NavigationDrawerAssist.SelectedIcon" Value="Video" />
+                        <Setter Property="materialDesign:NavigationDrawerAssist.UnselectedIcon" Value="VideoOutline" />
+                    </Style>
+                </ListBoxItem.Style>
+                <TextBlock Text="CAMERA" />
+            </ListBoxItem>
+            <ListBoxItem>
+                <ListBoxItem.Style>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MaterialDesign3.NavigationDrawerPrimaryListBoxItem}">
+                        <Setter Property="materialDesign:NavigationDrawerAssist.SelectedIcon" Value="Lightbulb" />
+                        <Setter Property="materialDesign:NavigationDrawerAssist.UnselectedIcon" Value="LightbulbOutline" />
+                    </Style>
+                </ListBoxItem.Style>
+                <TextBlock Text="LIGHT" />
+            </ListBoxItem>
+            <ListBoxItem>
+                <ListBoxItem.Style>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MaterialDesign3.NavigationDrawerPrimaryListBoxItem}">
+                        <Setter Property="materialDesign:NavigationDrawerAssist.SelectedIcon" Value="Settings" />
+                        <Setter Property="materialDesign:NavigationDrawerAssist.UnselectedIcon" Value="SettingsOutline" />
+                    </Style>
+                </ListBoxItem.Style>
+                <TextBlock Text="CONFIG" />
+            </ListBoxItem>
+            <ListBoxItem>
+                <ListBoxItem.Style>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MaterialDesign3.NavigationDrawerPrimaryListBoxItem}">
+                        <Setter Property="materialDesign:NavigationDrawerAssist.SelectedIcon" Value="Toolbox" />
+                        <Setter Property="materialDesign:NavigationDrawerAssist.UnselectedIcon" Value="ToolboxOutline" />
+                    </Style>
+                </ListBoxItem.Style>
+                <TextBlock Text="TOOL" />
+            </ListBoxItem>
+            <ListBoxItem>
+                <ListBoxItem.Style>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MaterialDesign3.NavigationDrawerPrimaryListBoxItem}">
+                        <Setter Property="materialDesign:NavigationDrawerAssist.SelectedIcon" Value="Motion" />
+                        <Setter Property="materialDesign:NavigationDrawerAssist.UnselectedIcon" Value="MotionOutline" />
+                    </Style>
+                </ListBoxItem.Style>
+                <TextBlock Text="MOTION" />
+            </ListBoxItem>
+            <ListBoxItem>
+                <ListBoxItem.Style>
+                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MaterialDesign3.NavigationDrawerPrimaryListBoxItem}">
+                        <Setter Property="materialDesign:NavigationDrawerAssist.SelectedIcon" Value="LanConnect" />
+                        <Setter Property="materialDesign:NavigationDrawerAssist.UnselectedIcon" Value="LanDisconnect" />
+                    </Style>
+                </ListBoxItem.Style>
+                <TextBlock Text="COMM." />
+            </ListBoxItem>
+        </ListBox>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Light" VerticalAlignment="Center" Margin="10,0" Style="{StaticResource MaterialDesignCaptionTextBlock}"/>
+            <ToggleButton IsChecked="{Binding IsDarkTheme}" Style="{StaticResource MaterialDesignSwitchToggleButton}"/>
+            <TextBlock Text="Dark" VerticalAlignment="Center" Margin="10,0" Style="{StaticResource MaterialDesignCaptionTextBlock}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

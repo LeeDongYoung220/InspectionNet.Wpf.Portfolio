@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="InspectionNet.Wpf.PocProject.Views.PocCameraView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:InspectionNet.Wpf.PocProject.ViewModels"
+             d:DataContext="{d:DesignInstance vm:PocCameraViewModel}"
+             DataContext="{Binding Camera, Source={StaticResource ViewModelLocator}}"
+             xmlns:local="clr-namespace:InspectionNet.Wpf.PocProject.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:b="clr-namespace:InspectionNet.Wpf.PocProject.Behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:coreImplementation="clr-namespace:InspectionNet.Core.Implementations;assembly=InspectionNet.Core"
+             xmlns:utilities="clr-namespace:InspectionNet.Wpf.PocProject.Utilities"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <utilities:CameraParameterTemplateSelector x:Key="CameraParameterTemplateSelector"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="400" />
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignPaperButton}">
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignOutlinedComboBox}">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Padding" Value="16,8"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <UniformGrid Grid.Row="0" Columns="2">
+                <ComboBox materialDesign:HintAssist.Hint="Maker" ItemsSource="{Binding GrabberMakers}" SelectedItem="{Binding SelectedGrabberMaker}"/>
+                <TextBlock Text="{Binding CameraFrame}"/>
+            </UniformGrid>
+            <UniformGrid Grid.Row="1" Columns="2">
+                <ComboBox materialDesign:HintAssist.Hint="Camera" ItemsSource="{Binding CameraIdList}" SelectedItem="{Binding SelectedCameraId}"/>
+                <Button Content="Discover" Command="{Binding DiscoverCommand}"/>
+            </UniformGrid>
+            <UniformGrid Grid.Row="2" Columns="2">
+                <Button Content="Open" Command="{Binding OpenCommand}"/>
+                <Button Content="Close" Command="{Binding CloseCommand}"/>
+            </UniformGrid>
+            <UniformGrid Grid.Row="3" Columns="2">
+                <Button Content="Grab Start" Command="{Binding GrabStartCommand}"/>
+                <Button Content="Grab Stop" Command="{Binding GrabStopCommand}"/>
+            </UniformGrid>
+            <ContentControl Grid.Row="4" Content="{Binding LaonDisplay}"/>
+            <UniformGrid Grid.Row="5" Columns="2">
+                <Button Content="Select Directory" Command="{Binding SelectDirectoryCommand}"/>
+                <Button Content="Save Image" Command="{Binding SaveImageCommand}"/>
+            </UniformGrid>
+        </Grid>
+
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
+
+        <GroupBox Grid.Column="2" Margin="5" Padding="3" materialDesign:GroupBoxAssist.HeaderPadding="5" materialDesign:ElevationAssist.Elevation="Dp2" materialDesign:ColorZoneAssist.Mode="Standard" Style="{StaticResource MaterialDesignGroupBox}">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Width="22" Height="22" VerticalAlignment="Center" Kind="Settings" />
+                    <TextBlock Text="Parameters" Margin="10,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                </StackPanel>
+            </GroupBox.Header>
+            <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding SelectedCameraParameters}" ScrollViewer.CanContentScroll="False">
+                <ListView.Resources>
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                        <Setter Property="materialDesign:HintAssist.Hint" Value="{Binding Name}"/>
+                        <Setter Property="Text" Value="{Binding Value}"/>
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="Padding" Value="16,8"/>
+                    </Style>
+                    <DataTemplate x:Key="EnumParameterTemplate" DataType="{x:Type coreImplementation:EnumParameter}">
+                        <ComboBox Grid.Column="1" Padding="16,8" materialDesign:HintAssist.Hint="{Binding Name}" ItemsSource="{Binding AllValues}" SelectedItem="{Binding Value}" Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                    </DataTemplate>
+
+                    <DataTemplate x:Key="StringParameterTemplate" DataType="{x:Type coreImplementation:StringParameter}">
+                        <TextBox>
+                            <i:Interaction.Behaviors>
+                                <b:TextBoxAcceptBehavior/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </DataTemplate>
+
+                    <DataTemplate x:Key="FloatParameterTemplate" DataType="{x:Type coreImplementation:FloatParameter}">
+                        <TextBox>
+                            <i:Interaction.Behaviors>
+                                <b:TextBoxAcceptBehavior/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </DataTemplate>
+
+                    <DataTemplate x:Key="IntegerParameterTemplate" DataType="{x:Type coreImplementation:IntegerParameter}">
+                        <TextBox>
+                            <i:Interaction.Behaviors>
+                                <b:TextBoxAcceptBehavior/>
+                            </i:Interaction.Behaviors>
+                        </TextBox>
+                    </DataTemplate>
+
+                    <DataTemplate x:Key="CommandParameterTemplate" DataType="{x:Type coreImplementation:CommandParameter}">
+                        <Button Margin="3" Content="{Binding Name}" Command="{Binding ExecuteCommand}" Style="{StaticResource MaterialDesignPaperButton}"/>
+                    </DataTemplate>
+                </ListView.Resources>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid IsEnabled="{Binding IsWritable}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                            <ContentControl Grid.Column="1" Margin="10,0" Content="{Binding}" ContentTemplateSelector="{StaticResource CameraParameterTemplateSelector}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Height" Value="46"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </GroupBox>
+    </Grid>
+</UserControl>

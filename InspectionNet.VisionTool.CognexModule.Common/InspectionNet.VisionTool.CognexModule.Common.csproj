@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>AnyCPU;x64</Platforms>
+    <Configurations>Debug;Release;Remote;RemoteLys</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Remote|x64'">
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RemoteLys|x64'">
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Cognex.VisionPro.Controls" Version="25.1.0" />
+    <PackageReference Include="Cognex.VisionPro.Tools" Version="25.1.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InspectionNet.Core\InspectionNet.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Controls\LaonCogDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if not exist &quot;$(ProjectDir)..\bin\$(PlatformName)\$(ConfigurationName)&quot; mkdir &quot;$(ProjectDir)..\bin\$(PlatformName)\$(ConfigurationName)&quot;&#xD;&#xA;xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(ProjectDir)..\bin\$(PlatformName)\$(ConfigurationName)\&quot; /E /Y" />
+  </Target>
+</Project>

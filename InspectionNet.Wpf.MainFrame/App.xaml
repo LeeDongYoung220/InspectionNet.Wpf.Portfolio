@@ -1,0 +1,20 @@
+﻿<Application x:Class="InspectionNet.Wpf.MainFrame.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:InspectionNet.Wpf.MainFrame"
+             xmlns:Imp="clr-namespace:InspectionNet.Wpf.Common.MainFrame.ViewModels.Implementations;assembly=InspectionNet.Wpf.Common"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             StartupUri="/Views/MainView.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Green" SecondaryColor="Yellow"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Imp:ViewModelLocator x:Key="ViewModelLocator" d:IsDataSource="True"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

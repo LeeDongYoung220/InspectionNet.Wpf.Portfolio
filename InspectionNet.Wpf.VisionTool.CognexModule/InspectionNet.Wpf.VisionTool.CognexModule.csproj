@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
+	  <ImplicitUsings>disable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <PlatformTarget>x64</PlatformTarget>
+    <Platforms>AnyCPU;x64</Platforms>
+	  <UseWPF>true</UseWPF>
+	  <UseWindowsForms>true</UseWindowsForms>
+	  <Configurations>Debug;Release;Remote;RemoteLys</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    
+    <PackageReference Include="log4net" Version="3.0.4" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InspectionNet.Core\InspectionNet.Core.csproj" />
+    <ProjectReference Include="..\InspectionNet.VisionTool.CognexModule.Common\InspectionNet.VisionTool.CognexModule.Common.csproj" />
+    <ProjectReference Include="..\InspectionNet.Wpf.Common\InspectionNet.Wpf.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Cognex.VisionPro">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.CalibFix">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.CalibFix.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.CalibFix.Controls">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.CalibFix.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.Caliper">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.Caliper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.Controls">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.Core">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.Dimensioning">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.Dimensioning.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.Display.Controls">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.Display.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.ImageProcessing">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.ImageProcessing.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.PMAlign">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.PMAlign.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.ToolGroup">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.ToolGroup.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Cognex.VisionPro.ToolGroup.Controls">
+      <HintPath>C:\Program Files\Cognex\VisionPro 25.1.0\bin\Cognex.VisionPro.ToolGroup.Controls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

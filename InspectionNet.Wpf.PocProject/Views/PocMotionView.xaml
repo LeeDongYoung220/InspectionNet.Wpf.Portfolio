@@ -1,0 +1,534 @@
+﻿<UserControl x:Class="InspectionNet.Wpf.PocProject.Views.PocMotionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cvt="clr-namespace:InspectionNet.Wpf.PocProject.Converters"
+             xmlns:vm="clr-namespace:InspectionNet.Wpf.PocProject.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DataContext="{d:DesignInstance vm:PocMotionViewModel}"
+             DataContext="{Binding Motion, Source={StaticResource ViewModelLocator}}"
+             mc:Ignorable="d" 
+             d:DesignHeight="1000" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <cvt:BoolToColorConverter x:Key="BoolColorConverter"/>
+        <SolidColorBrush x:Key="LimeBrush" Color="Lime"/>
+        <SolidColorBrush x:Key="RedBrush" Color="Red"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" HeadersVisibility="Column" ColumnWidth="100" ItemsSource="{Binding AxisList}">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                    <Setter Property="ContentTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style x:Key="OnOffEllipse" TargetType="{x:Type Ellipse}">
+                    <Setter Property="Width" Value="20"/>
+                    <Setter Property="Height" Value="20"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+                <Style x:Key="DataTextBlock" TargetType="{x:Type TextBlock}">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="No" Binding="{Binding Index}" IsReadOnly="True" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTemplateColumn Header="On/Off">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ToggleButton IsChecked="{Binding IsServoOn, UpdateSourceTrigger=PropertyChanged}" Margin="0"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="In Alarm">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Style="{StaticResource OnOffEllipse}" Fill="{Binding IsAlarm, Converter={StaticResource BoolColorConverter}, ConverterParameter={StaticResource RedBrush}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="In Motion">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Style="{StaticResource OnOffEllipse}" Fill="{Binding IsInMotion, Converter={StaticResource BoolColorConverter}, ConverterParameter={StaticResource LimeBrush}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="In Position">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Style="{StaticResource OnOffEllipse}" Fill="{Binding IsInPosition, Converter={StaticResource BoolColorConverter}, ConverterParameter={StaticResource LimeBrush}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="In Home">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Style="{StaticResource OnOffEllipse}" Fill="{Binding IsInHome, Converter={StaticResource BoolColorConverter}, ConverterParameter={StaticResource LimeBrush}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="(-) Limit">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Style="{StaticResource OnOffEllipse}" Fill="{Binding IsNegativeLimit, Converter={StaticResource BoolColorConverter}, ConverterParameter={StaticResource RedBrush}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="(+) Limit">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Style="{StaticResource OnOffEllipse}" Fill="{Binding IsPositiveLimit, Converter={StaticResource BoolColorConverter}, ConverterParameter={StaticResource RedBrush}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="EMG">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Ellipse Style="{StaticResource OnOffEllipse}" Fill="{Binding EmergencyStop, Converter={StaticResource BoolColorConverter}, ConverterParameter={StaticResource RedBrush}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Command Pos." Binding="{Binding CommandPosition, StringFormat={}{0:F3}}" IsReadOnly="True" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTextColumn Header="Actual Pos." Binding="{Binding ActualPosition, StringFormat={}{0:F3}}" IsReadOnly="True" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTextColumn Header="Command Vel." Binding="{Binding CommandVelocity, StringFormat={}{0:F3}}" IsReadOnly="True" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTemplateColumn Header="Position Clear">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding PositionClearCommand}">
+                                <materialDesign:PackIcon Kind="DeleteOutline"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Pos. Error" Binding="{Binding PositionError, StringFormat={}{0:F3}}" IsReadOnly="True" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTextColumn Header="Target Position (Abs)" Binding="{Binding TargetPositionAbs, StringFormat={}{0:F3}}" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTextColumn Header="Target Position (Rel)" Binding="{Binding TargetPositionRel, StringFormat={}{0:F3}}" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTemplateColumn Header="Target Move">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding MoveTargetPositionCommand}">
+                                <materialDesign:PackIcon Kind="Play"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Velocity" Binding="{Binding UserVelocity, StringFormat={}{0:F3}}" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTextColumn Header="Acceleration" Binding="{Binding UserAcceleration, StringFormat={}{0:F3}}" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTextColumn Header="Deceleration" Binding="{Binding UserDeceleration, StringFormat={}{0:F3}}" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTextColumn Header="Alarm Code" Binding="{Binding AlarmCode, StringFormat=0x{0}}" IsReadOnly="True" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTemplateColumn Header="Home">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding HomeStartCommand}">
+                                <materialDesign:PackIcon Kind="HomeOutline"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Home Result" Binding="{Binding HomeResult}" IsReadOnly="True" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTextColumn Header="Home Rate" Binding="{Binding HomeRate}" IsReadOnly="True" 
+                                    EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+
+                <DataGridTemplateColumn Header="Stop">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding MoveStopCommand}">
+                                <materialDesign:PackIcon Kind="Stop"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="(-) Move">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button>
+                                <materialDesign:PackIcon Kind="Minus"/>
+                                <behavior:Interaction.Triggers>
+                                    <behavior:EventTrigger EventName="PreviewMouseDown">
+                                        <behavior:InvokeCommandAction Command="{Binding MoveNegativeCommand}"/>
+                                    </behavior:EventTrigger>
+                                    <behavior:EventTrigger EventName="PreviewMouseUp">
+                                        <behavior:InvokeCommandAction Command="{Binding MoveStopCommand}"/>
+                                    </behavior:EventTrigger>
+                                </behavior:Interaction.Triggers>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="(+) Move">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button>
+                                <materialDesign:PackIcon Kind="Plus"/>
+                                <behavior:Interaction.Triggers>
+                                    <behavior:EventTrigger EventName="PreviewMouseDown">
+                                        <behavior:InvokeCommandAction Command="{Binding MovePositiveCommand}"/>
+                                    </behavior:EventTrigger>
+                                    <behavior:EventTrigger EventName="PreviewMouseUp">
+                                        <behavior:InvokeCommandAction Command="{Binding MoveStopCommand}"/>
+                                    </behavior:EventTrigger>
+                                </behavior:Interaction.Triggers>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Margin="5" Padding="3" materialDesign:GroupBoxAssist.HeaderPadding="5" materialDesign:ElevationAssist.Elevation="Dp1" materialDesign:ColorZoneAssist.Mode="Standard" Style="{StaticResource MaterialDesignGroupBox}">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Width="22" Height="22" VerticalAlignment="Center" Kind="ArrowAll" />
+                    <TextBlock Text="Jog" Margin="10,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                </StackPanel>
+            </GroupBox.Header>
+
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Setter Property="Height" Value="50"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="1" Content="Y (+)">
+                    <behavior:Interaction.Triggers>
+                        <behavior:EventTrigger EventName="PreviewMouseDown">
+                            <behavior:InvokeCommandAction Command="{Binding JogMoveUpCommand}"/>
+                        </behavior:EventTrigger>
+                        <behavior:EventTrigger EventName="PreviewMouseUp">
+                            <behavior:InvokeCommandAction Command="{Binding JogMoveYStopCommand}"/>
+                        </behavior:EventTrigger>
+                    </behavior:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="2" Content="X (+)">
+                    <behavior:Interaction.Triggers>
+                        <behavior:EventTrigger EventName="PreviewMouseDown">
+                            <behavior:InvokeCommandAction Command="{Binding JogMoveRightCommand}"/>
+                        </behavior:EventTrigger>
+                        <behavior:EventTrigger EventName="PreviewMouseUp">
+                            <behavior:InvokeCommandAction Command="{Binding JogMoveXStopCommand}"/>
+                        </behavior:EventTrigger>
+                    </behavior:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="0" Content="X (-)">
+                    <behavior:Interaction.Triggers>
+                        <behavior:EventTrigger EventName="PreviewMouseDown">
+                            <behavior:InvokeCommandAction Command="{Binding JogMoveLeftCommand}"/>
+                        </behavior:EventTrigger>
+                        <behavior:EventTrigger EventName="PreviewMouseUp">
+                            <behavior:InvokeCommandAction Command="{Binding JogMoveXStopCommand}"/>
+                        </behavior:EventTrigger>
+                    </behavior:Interaction.Triggers>
+                </Button>
+                <Button Grid.Row="2" Grid.Column="1" Content="Y (-)">
+                    <behavior:Interaction.Triggers>
+                        <behavior:EventTrigger EventName="PreviewMouseDown">
+                            <behavior:InvokeCommandAction Command="{Binding JogMoveDownCommand}"/>
+                        </behavior:EventTrigger>
+                        <behavior:EventTrigger EventName="PreviewMouseUp">
+                            <behavior:InvokeCommandAction Command="{Binding JogMoveYStopCommand}"/>
+                        </behavior:EventTrigger>
+                    </behavior:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="1" Margin="5" Padding="3" materialDesign:GroupBoxAssist.HeaderPadding="5" materialDesign:ElevationAssist.Elevation="Dp1" materialDesign:ColorZoneAssist.Mode="Standard" Style="{StaticResource MaterialDesignGroupBox}">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Width="22" Height="22" VerticalAlignment="Center" Kind="CalculatorVariant" />
+                    <TextBlock Text="Align" Margin="10,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                </StackPanel>
+            </GroupBox.Header>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <DataGrid Grid.Row="0" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" HeadersVisibility="Column" ItemsSource="{Binding InitPositions}" SelectedItem="{Binding SelectedInitPosition}">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Action">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding MoveTargetCommand}" Content="{Binding Name}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Target X" Binding="{Binding TargetX, StringFormat={}{0:F3}}" 
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Target Y" Binding="{Binding TargetY, StringFormat={}{0:F3}}" 
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Calc. X" Binding="{Binding FinalX, StringFormat={}{0:F3}}" IsReadOnly="True" 
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Calc. Y" Binding="{Binding FinalY, StringFormat={}{0:F3}}" IsReadOnly="True" 
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <UniformGrid Grid.Row="1" Columns="3" IsEnabled="False">
+                    <TextBox Margin="8" Padding="16,8" materialDesign:HintAssist.Hint="Position Name" Text="{Binding SelectedInitPositionName}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                    <Button Margin="5" Content="Add" Command="{Binding AddInitPositionCommand}"/>
+                    <Button Margin="5" Content="Remove" Command="{Binding RemoveInitPositionCommand}"/>
+                </UniformGrid>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="2" Margin="5" Padding="3" materialDesign:GroupBoxAssist.HeaderPadding="5" materialDesign:ElevationAssist.Elevation="Dp1" materialDesign:ColorZoneAssist.Mode="Standard" Style="{StaticResource MaterialDesignGroupBox}">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Width="22" Height="22" VerticalAlignment="Center" Kind="MotionPlay" />
+                    <TextBlock Text="Run" Margin="10,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                </StackPanel>
+            </GroupBox.Header>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <DataGrid Grid.Row="0" AutoGenerateColumns="False" CanUserAddRows="False" CanUserSortColumns="False" HeadersVisibility="Column" ItemsSource="{Binding RunPositions}" SelectedItem="{Binding SelectedRunPosition}">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Action">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding MoveTargetCommand}" Content="{Binding Name}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Target X" Binding="{Binding TargetX, StringFormat={}{0:F3}}" 
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Target Y" Binding="{Binding TargetY, StringFormat={}{0:F3}}" 
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Calc. X" Binding="{Binding FinalX, StringFormat={}{0:F3}}" IsReadOnly="True" 
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Calc. Y" Binding="{Binding FinalY, StringFormat={}{0:F3}}" IsReadOnly="True" 
+                                            EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Margin="8" Padding="16,8" materialDesign:HintAssist.Hint="Position Name" Text="{Binding SelectedRunPositionName}" Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                    <UniformGrid Grid.Column="1" Columns="4">
+                        <Button Margin="5" Content="Add" Command="{Binding AddRunPositionCommand}"/>
+                        <Button Margin="5" Content="Remove" Command="{Binding RemoveRunPositionCommand}"/>
+                        <Button Margin="5" Content="Remove All" Command="{Binding RemoveAllRunPositionCommand}"/>
+                        <ToggleButton Content="R" IsChecked="{Binding IsRepeatRun}"/>
+                    </UniformGrid>
+                </Grid>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="3" Margin="5" Padding="3" materialDesign:GroupBoxAssist.HeaderPadding="5" materialDesign:ElevationAssist.Elevation="Dp1" materialDesign:ColorZoneAssist.Mode="Standard" Style="{StaticResource MaterialDesignGroupBox}">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Width="22" Height="22" VerticalAlignment="Center" Kind="Autorenew" />
+                    <TextBlock Text="Position Generator" Margin="10,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                </StackPanel>
+            </GroupBox.Header>
+
+            <Grid DataContext="{Binding PositionGenerator}">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                        <Setter Property="Padding" Value="16,8"/>
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="True"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding StartX}" materialDesign:HintAssist.Hint="Start X"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding StartY}" materialDesign:HintAssist.Hint="Start Y"/>
+                <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Rows}" materialDesign:HintAssist.Hint="Rows" materialDesign:TextFieldAssist.SuffixText="ea"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Columns}" materialDesign:HintAssist.Hint="Columns" materialDesign:TextFieldAssist.SuffixText="ea"/>
+                <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding PitchX}" materialDesign:HintAssist.Hint="Pitch X"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PitchY}" materialDesign:HintAssist.Hint="Pitch Y"/>
+                <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+                    <TextBlock Text="One Way" TextWrapping="Wrap"/>
+
+                    <StackPanel VerticalAlignment="Center" Margin="5">
+                        <materialDesign:PackIcon Kind="ArrowRightBold"/>
+                        <materialDesign:PackIcon Kind="ArrowRightBold"/>
+                    </StackPanel>
+
+                    <ToggleButton IsChecked="{Binding ReverseDirMode}" Margin="5,0"/>
+
+                    <StackPanel VerticalAlignment="Center" Margin="5">
+                        <materialDesign:PackIcon Kind="ArrowRightBold"/>
+                        <materialDesign:PackIcon Kind="ArrowLeftBold"/>
+                    </StackPanel>
+
+                    <TextBlock Text="Two Way"/>
+                </StackPanel>
+                <Button Grid.Row="7" Grid.ColumnSpan="2" Content="Generate" Command="{Binding RunCommand}"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2" Grid.Column="1" Margin="5" Padding="3" materialDesign:GroupBoxAssist.HeaderPadding="5" materialDesign:ElevationAssist.Elevation="Dp1" materialDesign:ColorZoneAssist.Mode="Standard" Style="{StaticResource MaterialDesignGroupBox}">
+            <GroupBox.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Width="22" Height="22" VerticalAlignment="Center" Kind="Location"/>
+                    <TextBlock Text="Coordinate System" Margin="10,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                </StackPanel>
+            </GroupBox.Header>
+
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignOutlinedTextBox}">
+                        <Setter Property="Padding" Value="16,8"/>
+                        <Setter Property="Margin" Value="8"/>
+                        <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="True"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <UniformGrid Grid.Row="0" Columns="2">
+                    <TextBox Text="{Binding FixturePositionX}" materialDesign:HintAssist.Hint="Target X" materialDesign:TextFieldAssist.SuffixText="um"/>
+                    <TextBox Text="{Binding FixturePositionY}" materialDesign:HintAssist.Hint="Target Y" materialDesign:TextFieldAssist.SuffixText="um"/>
+                </UniformGrid>
+
+                <Button Grid.Row="1" Content="Move" Command="{Binding MoveFixturePositionCommand}"/>
+            </Grid>
+        </GroupBox>
+
+        <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding LaonDisplay}"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="3">
+            <Button Content="Load to file" Margin="3" Command="{Binding LoadConfigFileCommand}"/>
+            <Button Content="Save to file" Margin="3" Command="{Binding SaveConfigFileCommand}"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
