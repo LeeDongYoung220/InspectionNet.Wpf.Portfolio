@@ -10,6 +10,7 @@
 ## 📌 소개
 **InspectionNet WPF Portfolio**는 머신 비전 검사 시스템을 위한  
 **MVVM 아키텍처 기반 데모 및 테스트용 포트폴리오 프로젝트 입니다.  
+**카메라, 조명, 축제어, AI 모듈 프로젝트는 Mockup 프로젝트로 대체하였습니다.
 
 ---
 
@@ -24,13 +25,13 @@
 
 ## 🗂️ 구성 요소
 InspectionNet.Wpf.Portfolio/  
-├── InspectionNet.CameraComponent.TestModule/ # 카메라 테스트 모듈  
+├── InspectionNet.CameraComponent.TestModule/ # 카메라 Mockup 모듈  
 ├── InspectionNet.Core/ # 공통 유틸/인터페이스  
 ├── InspectionNet.EnvironmentTools.Logger/ # 로깅 서비스 모듈  
-├── InspectionNet.LightComponent.TestModule/ # 조명 테스트 모듈  
-├── InspectionNet.MotionComponent.TestModule/ # 축 제어 테스트 모듈  
+├── InspectionNet.LightComponent.TestModule/ # 조명 Mockup 모듈  
+├── InspectionNet.MotionComponent.TestModule/ # 축 제어 Mockup 모듈  
 ├── InspectionNet.VisionTool.CognexModule.Common # Cognex 모듈 공통 (WinForms 기반)  
-├── InspectionNet.VisionTool.TestAiModule/ # AI 테스트 모듈  
+├── InspectionNet.VisionTool.TestAiModule/ # AI Mockup 모듈  
 ├── InspectionNet.Winform.Common/ # WinForms 공용 컨트롤  
 ├── InspectionNet.Wpf.Common/ # WPF 공통 유틸  
 ├── InspectionNet.Wpf.MainFrame/ # 메인 UI 및 부트스트레퍼  
