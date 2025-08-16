@@ -24,19 +24,20 @@
 
 ## 🗂️ 구성 요소
 
-- **InspectionNet.CameraComponent.TestModule** : 카메라 테스트 모듈  
-- **InspectionNet.Core** : 공통 유틸/인터페이스  
-- **InspectionNet.EnvironmentTools.Logger** : 로깅 서비스 모듈  
-- **InspectionNet.LightComponent.TestModule** : 조명 테스트 모듈  
-- **InspectionNet.MotionComponent.TestModule** : 축 제어 테스트 모듈  
-- **InspectionNet.VisionTool.CognexModule.Common** : Cognex 모듈 공통 (WinForms 기반)  
-- **InspectionNet.VisionTool.TestAiModule** : AI 테스트 모듈  
-- **InspectionNet.Winform.Common** : WinForms 기반 공용 컨트롤 (예: OpenFileDialog, FolderBrowserDialog 등)  
-- **InspectionNet.Wpf.Common** : WPF 공통 유틸  
-- **InspectionNet.Wpf.MainFrame** : 메인 UI 및 부트스트레퍼  
-- **InspectionNet.Wpf.PocProject** : (POC 프로젝트, 추후 상세 내용 추가)  
-- **InspectionNet.VisionTool.CognexModule** : Cognex V-Pro 연동 모듈  
-- **ReferenceAssemblies** : 프로젝트 종속성 참조 DLL 관리  
+InspectionNet.Wpf.Portfolio/
+├── InspectionNet.CameraComponent.TestModule/ # 카메라 테스트 모듈
+├── InspectionNet.Core/ # 공통 유틸/인터페이스
+├── InspectionNet.EnvironmentTools.Logger/ # 로깅 서비스 모듈
+├── InspectionNet.LightComponent.TestModule/ # 조명 테스트 모듈
+├── InspectionNet.MotionComponent.TestModule/ # 축 제어 테스트 모듈
+├── InspectionNet.VisionTool.CognexModule.Common # Cognex 모듈 공통 (WinForms 기반)
+├── InspectionNet.VisionTool.TestAiModule/ # AI 테스트 모듈
+├── InspectionNet.Winform.Common/ # WinForms 공용 컨트롤
+├── InspectionNet.Wpf.Common/ # WPF 공통 유틸
+├── InspectionNet.Wpf.MainFrame/ # 메인 UI 및 부트스트레퍼
+├── InspectionNet.Wpf.PocProject/ # POC 프로젝트
+├── InspectionNet.VisionTool.CognexModule/ # Cognex V-Pro 연동 모듈
+└── ReferenceAssemblies/ # 참조 DLL 모음
 
 ---
 
