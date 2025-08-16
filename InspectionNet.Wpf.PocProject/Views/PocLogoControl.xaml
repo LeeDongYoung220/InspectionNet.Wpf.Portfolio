@@ -10,6 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="150">
     <Grid>
-        <Image Source="/InspectionNet.Wpf.PocProject;component/Resources/Logo_Green.png" Stretch="Uniform"/>
+        <!--<Image Source="/InspectionNet.Wpf.PocProject;component/Resources/Logo_Green.png" Stretch="Uniform"/>-->
+        <TextBlock Text="Logo"/>
     </Grid>
 </UserControl>
