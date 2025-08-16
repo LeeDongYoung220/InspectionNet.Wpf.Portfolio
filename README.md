@@ -41,6 +41,41 @@ InspectionNet.Wpf.Portfolio/
 
 ---
 
+## 🔗 모듈 관계 다이어그램 (개념도)
+
+```mermaid
+graph TD
+
+    subgraph Core
+        A[InspectionNet.Core]
+    end
+
+    subgraph Services
+        B[Logger] --> A
+        C[Camera Test] --> A
+        D[Light Test] --> A
+        E[Motion Test] --> A
+    end
+
+    subgraph Vision
+        F[Cognex Common] --> A
+        G[Cognex V-Pro Module] --> F
+        H[Test AI Module] --> A
+    end
+
+    subgraph UI
+        I[Wpf.Common] --> A
+        J[Winform.Common] --> A
+        K[MainFrame/Bootstrapper] --> A
+        K --> B
+        K --> C
+        K --> D
+        K --> E
+        K --> F
+        K --> H
+    end
+--
+
 ## 🛠️ 개발 환경
 - .NET 8.0  
 - WPF (MVVM 아키텍처)  
