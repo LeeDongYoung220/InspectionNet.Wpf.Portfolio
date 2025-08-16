@@ -23,12 +23,16 @@
 ---
 
 ## 🗂️ 구성 요소
-
 InspectionNet.Wpf.Portfolio/
+
 ├── InspectionNet.CameraComponent.TestModule/ # 카메라 테스트 모듈
+
 ├── InspectionNet.Core/ # 공통 유틸/인터페이스
+
 ├── InspectionNet.EnvironmentTools.Logger/ # 로깅 서비스 모듈
+
 ├── InspectionNet.LightComponent.TestModule/ # 조명 테스트 모듈
+
 ├── InspectionNet.MotionComponent.TestModule/ # 축 제어 테스트 모듈
 ├── InspectionNet.VisionTool.CognexModule.Common # Cognex 모듈 공통 (WinForms 기반)
 ├── InspectionNet.VisionTool.TestAiModule/ # AI 테스트 모듈
